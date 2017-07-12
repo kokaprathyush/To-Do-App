@@ -1,0 +1,30 @@
+/*
+Theme Name : My Website;
+*/
+body{
+	background-image: url(background.jpg);
+}
+.login{
+	width : 40%;
+	margin-top:5%;
+	/*margin-bottom:5%;*/
+	margin-left: 30%;
+}
+.todogroup{
+	width : 40%;
+	margin-top:5%;
+	/*margin-bottom:5%;*/
+	margin-left: 10%;
+}
+.group{
+	width : 40%;
+	margin-top:5%;
+	/*margin-bottom:5%;*/
+	margin-left: 60%;
+}
+/*.group{
+	width :40%;
+	
+	margin-top :5%;
+	margin-left:70%;
+}*/
