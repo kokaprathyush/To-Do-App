@@ -1,18 +1,52 @@
+<?php get_header() ?>
+<!-- <button type="button" class="col-md-1 btn btn-primary">Sign-Out</button>  -->
+<div class="row">
+	<h3 style="text-align:center; color:white; margin-top:0px;" class="col-md-6 col-md-offset-3">WELCOME : <?php $current_user = wp_get_current_user();
+	 	echo $current_user->user_login ;?> 
+	</h3>
+	<button  type="button" class="col-md-1 btn btn-default" id="signout" style="margin-bottom: 10px">Sign-Out</button>
+</div>
+	<!-- <h3 style="text-align:center; color:white" >WELCOME : <?php $current_user = wp_get_current_user();
+	 	echo $current_user->user_login ;?> 
+	</h3>
+	<div style="padding-left:90%;"><button type="button" class="btn btn-default btn-md">SignOut</button></div> -->
+	<!-- <h2 style="text-align:right; color:white">Hello World</h2> -->
+	<!-- <div style= "padding-left:30%"> -->
+	<!-- <button  type="button" class="col-md-1 btn btn-primary">Sign-Out</button> -->
+	<!-- </div> -->	
+<div id="primary" class="content-area">
+<!-- <main id="main" class="site-main" role ="main"> -->
+	<!-- <br> -->
+	<div class="container" >
+		<div class="row	">
+			<div class="col-sm-6">
+				<div class="panel panel-default">
+					<div class="panel-body"  id="listinput" >
+						<form method="post">
+							<div class="form-group"><input id="todoheader" class="form-control" name="header" required type="text" placeholder="TO-DO list header">
+							</div>
+							<div class="form-group">
+							<textarea rows="8" id="todocontent" class="form-control" name="content" required placeholder="TO-DO list content"></textarea>
+							</div>
+							<div>
+								<div style="padding-left:40%;" >
+					            <button style="width:30%" type="submit" class="btn btn-primary" id="save">Save</button>
+					            <!-- <button style="width:30%" type="button" class="btn btn-primary" id="cancel" onclick= ""> Cancel</button> -->
+					            </div>
 
-<?php 
-	
-		$uid = $_POST['usn'];
-		$pwd = $_POST['pwd'];
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div  style="padding-left:10%;" class="col-sm-6">
+				<div class="panel panel-primary" >
+					<div class="panel-heading">
+						Your To-Do tasks list
 
-		if(wp_authenticate($uid,$pwd)){
-			echo "login success" ;
-		}
-		else{
-			echo "login failed";
-		}
-?>
-
-<?php 							
+					</div>
+					<div class="panel-body" id="listid" >
+						<?php 
 							$query = new WP_Query(array(
 								'posts_per_page' => -1,
 							    'post_type' => 'post',
@@ -31,3 +65,11 @@
 							    <?php echo "<br>";
 							}						
 							?>
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div>	
+<!-- </main> -->
+</div>	
+<?php get_footer() ?>

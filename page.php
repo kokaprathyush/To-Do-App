@@ -1,12 +1,14 @@
 
 <?php get_header() ?>
 <!-- <button type="button" class="col-md-1 btn btn-primary">Sign-Out</button>  -->
-<div class="row">
-	<h3 style="text-align:center; color:white; margin-top:0px;" class="col-md-6 col-md-offset-3">WELCOME : <?php $current_user = wp_get_current_user();
+<?php redirect(); ?>
+<!-- <div class="row"> -->
+	<h3 style=" color:white; margin-top:0px;" class="col-md-6 ">WELCOME : <?php global $current_user;
+	$current_user = wp_get_current_user();
 	 	echo $current_user->user_login ;?> 
 	</h3>
-	<button  type="button" class="col-md-1 btn btn-default" id="signout" style="margin-bottom: 10px">Sign-Out</button>
-</div>
+	<button  type="button" class="col-md-1 btn btn-default btn-md" id="signout" style="margin-left:40%; margin-bottom: 10px">Sign-Out</button>
+<!-- </div> -->
 	<!-- <h3 style="text-align:center; color:white" >WELCOME : <?php $current_user = wp_get_current_user();
 	 	echo $current_user->user_login ;?> 
 	</h3>
@@ -16,8 +18,6 @@
 	<!-- <button  type="button" class="col-md-1 btn btn-primary">Sign-Out</button> -->
 	<!-- </div> -->	
 <div id="primary" class="content-area">
-<!-- <main id="main" class="site-main" role ="main"> -->
-	<!-- <br> -->
 	<div class="container" >
 		<div class="row	">
 			<div class="col-sm-6">
@@ -37,6 +37,7 @@
 
 							</div>
 						</form>
+						
 					</div>
 				</div>
 			</div>
@@ -44,33 +45,30 @@
 				<div class="panel panel-primary" >
 					<div class="panel-heading">
 						Your To-Do tasks list
-
 					</div>
 					<div class="panel-body" id="listid" >
 						<?php 
 							$query = new WP_Query(array(
+								'author' => $current_user->ID,
 								'posts_per_page' => -1,
 							    'post_type' => 'post',
 							    'post_status' => 'publish'
 							));
 							while ($query->have_posts()) {
-							    $query->the_post(); ?>
+							    $query->the_post(); $id = get_the_ID(); ?>
 							    <!-- <div> -->
 							   	<button type="button" class="todo_list btn btn-link" value= "<?php the_ID();?>" ><?php the_title() ?></button>
-							   	<!-- <label><?php  the_date('F j, Y g:i a','','',true);?></label> -->
+							   	<label><?php echo get_the_date();?></label>
 							   	<!-- <div style= " padding-left:5%"> </div> -->
 							   	<button type="button" value= "<?php the_ID();?>" class="delete_option btn btn-danger btn-xs"> delete</button>
-							   
-							    							    
 							    <!-- </div> -->
 							    <?php echo "<br>";
 							}						
-							?>
+						?>
 					</div>	
 				</div>
 			</div>
 		</div>
-	</div>	
-<!-- </main> -->
+	</div>
 </div>	
 <?php get_footer() ?>
