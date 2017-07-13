@@ -10,4 +10,3 @@
 <body <?php body_class(); ?> >
 <div class="body">
 <h1 style="text-align:center;color:white">WELCOME TO MY WEBSITE</h1>
-<h3 style="text-align:center;color:white">SET YOUR TO-DO-LISTS AND TRY TO PUT YOURSELF ON TOP THEM</h3>

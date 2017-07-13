@@ -1,13 +1,28 @@
 
 <?php get_header() ?>
+<!-- <button type="button" class="col-md-1 btn btn-primary">Sign-Out</button>  -->
+<div class="row">
+	<h3 style="text-align:center; color:white; margin-top:0px;" class="col-md-6 col-md-offset-3">WELCOME : <?php $current_user = wp_get_current_user();
+	 	echo $current_user->user_login ;?> 
+	</h3>
+	<button  type="button" class="col-md-1 btn btn-default" id="signout" style="margin-bottom: 10px">Sign-Out</button>
+</div>
+	<!-- <h3 style="text-align:center; color:white" >WELCOME : <?php $current_user = wp_get_current_user();
+	 	echo $current_user->user_login ;?> 
+	</h3>
+	<div style="padding-left:90%;"><button type="button" class="btn btn-default btn-md">SignOut</button></div> -->
+	<!-- <h2 style="text-align:right; color:white">Hello World</h2> -->
+	<!-- <div style= "padding-left:30%"> -->
+	<!-- <button  type="button" class="col-md-1 btn btn-primary">Sign-Out</button> -->
+	<!-- </div> -->	
 <div id="primary" class="content-area">
-<main id="main" class="site-main" role ="main">
-	
+<!-- <main id="main" class="site-main" role ="main"> -->
+	<!-- <br> -->
 	<div class="container" >
 		<div class="row	">
 			<div class="col-sm-6">
 				<div class="panel panel-default">
-					<div class="panel-body">
+					<div class="panel-body"  id="listinput" >
 						<form method="post">
 							<div class="form-group"><input id="todoheader" class="form-control" name="header" required type="text" placeholder="TO-DO list header">
 							</div>
@@ -26,25 +41,18 @@
 				</div>
 			</div>
 			<div  style="padding-left:10%;" class="col-sm-6">
-				<div class="panel panel-primary">
+				<div class="panel panel-primary" >
 					<div class="panel-heading">
 						Your To-Do tasks list
+
 					</div>
-					<div class="panel-body" id = "todo_list_id" >
-						<?php $args = array ('posts_per_page' => -1, 'post_type' => 'post');
-							$posts_array = get_posts($args); 
-							// echo $posts_array;
-							// foreach ($posts_array as $key=>$wpPostObject) {
-							//     echo $wpPostObject->post_title;
-							// }
-							
+					<div class="panel-body" id="listid" >
+						<?php 
 							$query = new WP_Query(array(
 								'posts_per_page' => -1,
 							    'post_type' => 'post',
 							    'post_status' => 'publish'
 							));
-
-
 							while ($query->have_posts()) {
 							    $query->the_post(); ?>
 							    <!-- <div> -->
@@ -63,6 +71,6 @@
 			</div>
 		</div>
 	</div>	
-</main>
+<!-- </main> -->
 </div>	
 <?php get_footer() ?>

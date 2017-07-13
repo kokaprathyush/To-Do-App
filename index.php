@@ -1,4 +1,5 @@
 <?php get_header() ?>
+<h3 style="text-align:center;color:white">SET YOUR TO-DO-LISTS AND TRY TO PUT YOURSELF ON TOP THEM</h3>
 <div class= "container">
 	<div class=" login panel panel-default">
 		<div class="panel-heading">

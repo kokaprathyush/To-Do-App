@@ -10,17 +10,19 @@ function add_styles(){
 }
 // function add_scripts()
 // add_action( 'after_setup_theme', 'redirect' );
+add_action('template_redirect', 'redirect');
 add_action('wp_enqueue_scripts','add_styles');
-add_action('wp_ajax_nopriv_testing','testing_ajax');
-add_action('wp_ajax_testing','testing_ajax');
-//add_action( 'template_redirect', 'redirect' );
+add_action('wp_ajax_nopriv_creating_user','testing_creating_user');
+add_action('wp_ajax_creating_user','creating_user');
 add_action("wp_ajax_wp_save_as_post","save_as_post");
 add_action("wp_ajax_nopriv_wp_save_as_post", "save_as_post");
 add_action("wp_ajax_get_data","get_data");
 add_action("wp_ajax_nopriv_get_data","get_data");
 add_action("wp_ajax_delete_post","delete_post");
 add_action("wp_ajax_nopriv_delete_post","delete_post");
-function testing_ajax(){
+add_action("wp_ajax_redirect", "redirect");
+add_action("wp_ajax_nopriv_redirect","redirect");
+function creating_user(){
 	// echo "hello world";
 	// die();
 
@@ -35,37 +37,48 @@ function testing_ajax(){
 		);
 	$user_id = wp_insert_user($user_data);
 	$user = new WP_User( $user_id );
-  	$user->set_role( 'administrator' );
+  	$user->set_role( 'author' );
 
 	if(!is_wp_error($user_id)){
-		echo "User Created: " . $user_id;
+		$cred = array ('user_login' => $usn, 'user_password' => $pwd, 'remember' => true)
+  		$user_login = wp_signon($cred,false);
+  		
+		// echo "User Created: " . $user_id;
 	}
 }
-add_action('wp_ajax_redirect','redirect');
-add_action('wp_ajax_nopriv_redirect','redirect');
+add_action('wp_ajax_login','login');
+add_action('wp_ajax_nopriv_login','login');
 
-function redirect(){
+function login(){
 	// echo '<script>console.log("Your stuff here")</script>';
 
-	// $credentials = array();
-	// $credentials['user_password'] = $_POST['password'];
-	// $credentials['user_login'] = $_POST['username'];
-	// $credentials['remember'] = true;
+	$credentials = array();
+	$credentials['user_password'] = $_POST['password'];
+	$credentials['user_login'] = $_POST['username'];
+	$credentials['remember'] = true;
 	// echo $credentials['user_password'],$credentials['user_login'];
-	$credentials = array ('user_login' => 'prathyush', 'user_password' => 'ZEB#iBmfvSYp*6KUiu', 'remember' => true)	;
-	echo json_encode($credentials);
-	//$user = wp_signon($credentials,false);
-	$userID = $user->ID;
+	// $credentials = array ('user_login' => 'prathyush', 'user_password' => 'ZEB#iBmfvSYp*6KUiu', 'remember' => true)	;
+	// echo json_encode($credentials);
+	$user = wp_signon($credentials,false);
+	if($user){
+
+		echo "Success";
+	}
+	else{
+		echo "Failed";
+	}
+	// echo json_encode($user);
+	// $userID = $user->ID;
 
 	// wp_set_current_user($userID,$user_login);
 	// wp_set_auth_cookie($userID,true,false);
 	// do_action('wp_login',$user_login);
-	if(is_user_logged_in()){
-		echo "success";
-	}
-	else{
-		echo "fail";
-	}
+	// if(is_user_logged_in()){
+		// echo "success";
+	// }
+	// else{
+		// echo "fail";
+	// }
 	// echo '<script>console.log("Your writing")</script>';
 
 	// if(!is_wp_error($user)){
@@ -86,10 +99,9 @@ function save_as_post(){
 	$postarr = array ('ID' => $post_id, 'post_title' => $title, 'post_content' => $content);
 	$post_id = wp_insert_post($postarr);
 	
-	if($post_id != 0){
+	if($post_id != 0){	
 		wp_publish_post($post_id);
-		echo "Success";
-		
+		echo "Sucess";
 	}
 	else{
 		echo "Failure";
@@ -117,9 +129,16 @@ function delete_post(){
 	else{
 		echo "Deleted Successfully"	;
 	}
-	
-
 }
+function redirect(){
+	if (!is_page( 'to-do-list' ) && is_user_logged_in()){
+		// echo "redirect starts";
+		wp_redirect(home_url('/to-do-list/'));
+		die();
+	}		
+}
+
+
 // function retrieve_todo_lists(){
 
 // }
