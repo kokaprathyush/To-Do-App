@@ -172,4 +172,116 @@ jQuery(document).ready(function($){
 		})
 	})	
 })
+(
+							<label>There aren't any previous transactions</label>
+						)
+					}
+				</Col>
+				<Col xs={12} md={6}>
+				{
+					(this.context.store.getState().user_data.wallet_public_address) ?
+					(
+						<Row>
+							{
+								!this.state.ethereumNode ?
+								(
+									<Alert bsStyle="warning" style={{"marginBottom":"10px","fontSize":"15px"}}>
+										<strong>Attention!!!</strong>&nbsp;We are facing issues with ethereum network please try after some time 
+									</Alert>
+								): null
+							}
+							<div>
+					      		<h3 style={{"marginTop":"0px"}}>Wallet Details</h3>
+								<div>
+									<label>Wallet Address:</label>&nbsp;
+									<span>{"0x" + wallet_address}</span>&nbsp;&nbsp;
+									<CopyToClipboard text={"0x" + wallet_address} onCopy={() => this.setState({copied: true})}>
+										<OverlayTrigger placement="top" overlay={<Tooltip id="tooltip">Copy Address</Tooltip>}>
+											<i className="fa fa-clipboard" aria-hidden="true" style={clipboardStyle}></i>
+										</OverlayTrigger>
+									</CopyToClipboard>
+								</div>
+								<div>
+									<label>Wallet Balance</label>&nbsp;
+										<a onClick={this.handleChange} style={{"cursor":"pointer"}}>
+											<OverlayTrigger placement="top" overlay={<Tooltip id="tooltip">Update Balance</Tooltip>}>
+												<i className="fa fa-refresh"></i>
+											</OverlayTrigger>
+										</a><br/>
+									<span>{this.state.tokens + " CUBE "}</span><br/>
+									<span>{this.state.ether + " ETH"}</span><br />
+									<span><a onClick={this.showPayoutModal} style={{"cursor":"pointer"}}>Token Payout History</a></span>
+								</div>
+					      	</div>
+						</Row>
+					): 
+					(
+						<Alert bsStyle="warning" style={{"marginTop":"10px","fontSize":"16px"}}>
+							<strong>Attention!!!</strong>&nbsp; Wallet Creation is Mandatory
+						</Alert>
+					)
+				}
+					<Row>
+						<Col xs={12}>
+						<div style={{"marginTop":"20px"}}>
+							
+							{
+								(this.props.wallet_data["wallet_login"]) ?
+								(
+									<div>
+										<Link to="/wallet/unlock" className= { path == '/wallet/unlock' ? "btn btn-info " : "btn btn-default"} style={{"marginRight":"10px"}} >Wallet Actions</Link>
+										<Button className="btn btn-danger" onClick={this.handleForget}>Forget Wallet</Button>
+									</div>
+								):
+								(
+									<div>
+										<Link to="/wallet/unlock" className= { path == '/wallet/unlock' ? "btn btn-info " : "btn btn-default"} style={{"marginRight":"10px"}} >Unlock Wallet</Link>
+										<Link to="/wallet/import" className={path == '/wallet/import' ? "btn btn-info" : "btn btn-default"} style={{"marginRight":"10px"}} >Import Wallet</Link>
+										<Link to="/wallet/create" className={path == '/wallet/create' ? "btn btn-info" : "btn btn-default"}>Create Wallet</Link>
+									</div>
+								)
+							}
+						</div>
+						</Col>
+						<Col>
+							{this.props.children }
+						</Col>
+					</Row>
+				<TokenPayoutModal modalType="Bounty" userId={userId}/>
+				</Col>
+
+				<Col xs={12} md={3}>
+					<h3 style={{"marginTop":"0px"}}>
+						Contributions
+						<a onClick={this.handleContributions} style={{"cursor":"pointer","marginLeft":"8px","fontSize":"18px"}}>
+							<OverlayTrigger placement="top" overlay={<Tooltip id="tooltip">Update Contributions List</Tooltip>}>
+								<i className="fa fa-refresh"></i>
+							</OverlayTrigger>
+						</a>
+					</h3>
+					{
+						(this.state.madeContributions) ? 
+						(
+							<Table condensed hover>
+						    	<thead>
+								    <tr>
+								    	<th>Community</th>
+								    	<th>Contribution (CUBE)</th>
+								    </tr>
+								</thead>
+								<tbody>
+										{
+									    	this.state.contributionsList
+									    }
+								</tbody>
+							</Table>
+						):
+						(
+							<label>There aren't any contributions made</label>
+						)
+					}
+				</Col>
+			</Row>
+		</DocumentMeta>
+		)
 
