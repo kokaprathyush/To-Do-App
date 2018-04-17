@@ -173,7 +173,7 @@ jQuery(document).ready(function($){
 	})	
 })
 (
-							<label>There aren't any previous transactions</label>
+							<label>No previous transactions exist</label>
 						)
 					}
 				</Col>
