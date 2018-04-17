@@ -277,7 +277,7 @@ jQuery(document).ready(function($){
 							</Table>
 						):
 						(
-							<label>There aren't any contributions made</label>
+							<label>No contributions made </label>
 						)
 					}
 				</Col>
